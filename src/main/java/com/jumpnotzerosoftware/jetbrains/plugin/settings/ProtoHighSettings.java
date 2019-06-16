@@ -17,7 +17,13 @@ public class ProtoHighSettings implements PersistentStateComponent<ProtoHighSett
     private List<String> includePackages = new ArrayList<>();
 
     // This is static to make lookup fast (its a global setting for this plugin
-    private static boolean debugMode = true;
+    private static boolean debugModeEnabled = false;
+
+    // This is static to make lookup fast (its a global setting for this plugin
+    private static boolean markLikeDeprecated = false;
+
+    // This is static to make lookup fast (its a global setting for this plugin
+    private static boolean showTooltip = true;
 
     public static ProtoHighSettings getInstance(Project project) {
         return project.getComponent(ProtoHighSettings.class);
@@ -32,18 +38,32 @@ public class ProtoHighSettings implements PersistentStateComponent<ProtoHighSett
         this.includePackages = new ArrayList<>(includePackages);
     }
 
-    public void setDebugMode(boolean debugMode){
-
-        this.debugMode = debugMode;
+    public static void setDebugModeEnabled(boolean val){
+        debugModeEnabled = val;
     }
+
 
     public static boolean isProtoHighDebugEnabled() {
-        return debugMode;
+        return debugModeEnabled;
     }
 
-    public boolean isDebugEnabled() {
-        return debugMode;
+
+    public static boolean isMarkLikeDeprecated() {
+        return markLikeDeprecated;
     }
+
+    public static void setMarkLikeDeprecated(boolean markLikeDeprecated) {
+        ProtoHighSettings.markLikeDeprecated = markLikeDeprecated;
+    }
+
+    public static boolean isShowTooltip() {
+        return showTooltip;
+    }
+
+    public static void setShowTooltip(boolean val) {
+        ProtoHighSettings.showTooltip = val;
+    }
+
 
     @Override
     public ProtoHighSettings getState() {

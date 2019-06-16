@@ -28,7 +28,8 @@ public class SettingsForm {
     private JLabel includePathsLabel;
     private JTextField packageInputField;
     private JCheckBox debugEnabledCheckbox;
-
+    private JCheckBox highlightAsDeprecatedCheckbox;
+    private JCheckBox highlightWithTooltipCheckbox;
 
     /**
      * Create new {@link SettingsForm} instance.
@@ -43,7 +44,9 @@ public class SettingsForm {
             internalIncludePathList.addAll(settings.getIncludePackages());
         }
 
-        debugEnabledCheckbox.setSelected(settings.isDebugEnabled());
+        debugEnabledCheckbox.setSelected(ProtoHighSettings.isProtoHighDebugEnabled());
+        highlightAsDeprecatedCheckbox.setSelected(ProtoHighSettings.isMarkLikeDeprecated());
+        highlightWithTooltipCheckbox.setSelected(ProtoHighSettings.isShowTooltip());
 
         includePathListList = Collections.unmodifiableList(internalIncludePathList);
         includePathModel = new CollectionListModel<>(internalIncludePathList, true);
@@ -60,22 +63,45 @@ public class SettingsForm {
             }
         });
 
-        debugEnabledCheckbox.addActionListener(e -> {
-
-            JCheckBox box = (JCheckBox) e.getSource();
-
-            settings.setDebugMode(box.isSelected());
-
-            int selectedIndex = includePathList.getSelectedIndex();
-            if (selectedIndex != -1) {
-                includePathModel.removeRow(selectedIndex);
-            }
-        });
+        addHighlightWithTooltipEventHandler();
+        addDebugEnabledHander();
+        addHighlightDeprecatedEventHandler();
 
         if (settings == null) {
             addButton.setEnabled(false);
             removeButton.setEnabled(false);
         }
+    }
+
+    private void addDebugEnabledHander() {
+
+        debugEnabledCheckbox.addActionListener(e -> {
+
+            JCheckBox box = (JCheckBox) e.getSource();
+
+            ProtoHighSettings.setDebugModeEnabled(box.isSelected());
+        });
+    }
+
+    private void addHighlightWithTooltipEventHandler() {
+        highlightWithTooltipCheckbox.addActionListener(e -> {
+
+            JCheckBox box = (JCheckBox) e.getSource();
+
+            ProtoHighSettings.setShowTooltip(box.isSelected());
+
+        });
+    }
+
+
+    private void addHighlightDeprecatedEventHandler() {
+        highlightAsDeprecatedCheckbox.addActionListener(e -> {
+
+            JCheckBox box = (JCheckBox) e.getSource();
+
+            ProtoHighSettings.setMarkLikeDeprecated(box.isSelected());
+
+        });
     }
 
     public JPanel getPanel() {
@@ -96,5 +122,4 @@ public class SettingsForm {
         includePathModel.add(source.getIncludePackages());
 
     }
-
 }

@@ -1,5 +1,6 @@
 package com.jumpnotzerosoftware.jetbrains.plugin;
 
+import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.diagnostic.Logger;
@@ -35,10 +36,23 @@ public class ProtoHighJavaSyntaxKeywordsAnnotator implements Annotator {
         //holder.createInfoAnnotation(element, "xxx").setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
         holder.createInfoAnnotation(element, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
 
+
+        if (ProtoHighSettings.isMarkLikeDeprecated()){
+
+            holder.createInfoAnnotation(element, null).setHighlightType(ProblemHighlightType.LIKE_DEPRECATED);
+        }
+
+        String tooltip = null;
+
+        if (ProtoHighSettings.isShowTooltip()){
+
+            tooltip = "protobuf";
+        }
+
         //holder.createInfoAnnotation(element, "protobuf").setHighlightType(ProblemHighlightType.LIKE_DEPRECATED);
         //holder.createInfoAnnotation(element, "xxx").setHighlightType(ProblemHighlightType.WEAK_WARNING);
 
-        holder.createInfoAnnotation(element, "protobuf").setEnforcedTextAttributes(
+        holder.createInfoAnnotation(element, tooltip).setEnforcedTextAttributes(
                          EditorColorsManager.getInstance().getGlobalScheme().getAttributes(key));
 
         //holder.createInfoAnnotation(element, "yyy").setEnforcedTextAttributes(
@@ -47,9 +61,6 @@ public class ProtoHighJavaSyntaxKeywordsAnnotator implements Annotator {
 
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-
-        //LOGGER.info("z3 isPhysical=|{}|" + element.isPhysical());
-        //LOGGER.info("z4 is|{}|" + element.isValid());
 
         if (element.getLanguage().isKindOf("JAVA")) {
 
@@ -116,7 +127,7 @@ public class ProtoHighJavaSyntaxKeywordsAnnotator implements Annotator {
                         PsiClass psiClass = (PsiClass) resolved;
 
                         if (ProtoHighSettings.isProtoHighDebugEnabled()) {
-                            LOGGER.info("111111111 " + psiClass);
+                            LOGGER.info("resolved to PsiClass=|" + psiClass + "|");
                         }
                         process(element, holder, psiClass);
                     }
@@ -124,12 +135,13 @@ public class ProtoHighJavaSyntaxKeywordsAnnotator implements Annotator {
 
                         PsiMethod psiMethod = (PsiMethod) resolved;
 
+                        // TODO add change text color based on return type
                         //psiMethod.getReturnType()
 
                         PsiClass psiClass = psiMethod.getContainingClass();
 
                         if (ProtoHighSettings.isProtoHighDebugEnabled()) {
-                            LOGGER.info("222222222 " + psiClass);
+                            LOGGER.info("resolved to PsiMethod=|" + psiClass + "|");
                         }
                         process(element, holder, psiClass);
                     }
@@ -137,7 +149,7 @@ public class ProtoHighJavaSyntaxKeywordsAnnotator implements Annotator {
                         PsiClass psiClass = PsiTreeUtil.getParentOfType(resolved, PsiClass.class);
 
                         if (ProtoHighSettings.isProtoHighDebugEnabled()) {
-                            LOGGER.info("000000000000000000 " + psiClass);
+                            LOGGER.info("resolved using getParentOfType=|" + psiClass + "|");
                         }
                         process(element, holder, psiClass);
                     }
@@ -207,7 +219,9 @@ public class ProtoHighJavaSyntaxKeywordsAnnotator implements Annotator {
 
                 boolean matched = false;
 
-                LOGGER.info("implOf=|" + psiClass.getQualifiedName() + "|");
+                if (ProtoHighSettings.isProtoHighDebugEnabled()) {
+                    LOGGER.info("implOf=|" + psiClass.getQualifiedName() + "|");
+                }
 
                 if (matchesFilter(psiClass)) {
 

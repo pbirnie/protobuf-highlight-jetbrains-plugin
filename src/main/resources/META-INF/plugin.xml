@@ -4,9 +4,12 @@
     <version>0.10.3</version>
     <vendor url="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin" email="paul.birnie@jumpnotzerosoftware.com">Paul Birnie</vendor>
 
+
     <description><![CDATA[
-        Highlight java code using the generated protobuf stubs <a href="https://developers.google.com/protocol-buffers/">Google Protobuf</a> within JetBrains products.
+        Java code using generated <a href="https://developers.google.com/protocol-buffers/">protobuf</a> classes is highlighted within JetBrains products.<br>
+        This makes it easier to see when a method or class you are using is actually a protobuf / gprc stub
         <br>
+        <img src="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/blob/master/image/result.png" alt="screenshot">
         <br>
         Features:
         <ul>
@@ -15,7 +18,8 @@
         </ul>
         <br>
         <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/wiki/Roadmap">Roadmap</a>
-        | <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/issues">Issue tracker</a>
+        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/issues">Issue tracker</a>
+
         <br>
     ]]></description>
 

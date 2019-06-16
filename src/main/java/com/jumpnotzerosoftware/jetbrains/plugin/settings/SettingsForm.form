@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.jumpnotzerosoftware.jetbrains.plugin.settings.SettingsForm">
-  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="6" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="8" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="557" height="439"/>
+      <xy x="20" y="20" width="593" height="439"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <component id="8ab5e" class="javax.swing.JLabel" binding="includePathsLabel">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Package match paths:"/>
+          <text value="Highlight references to classes from these packages:"/>
         </properties>
       </component>
       <vspacer id="ef722">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="5" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="4" row-span="1" col-span="2" vsize-policy="6" hsize-policy="5" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <vspacer id="13f08">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <scrollpane id="2b25a">
         <constraints>
-          <grid row="2" column="0" row-span="3" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="3" col-span="6" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <verticalScrollBarPolicy value="22"/>
@@ -45,7 +45,7 @@
       </scrollpane>
       <component id="27302" class="javax.swing.JButton" binding="addButton" default-binding="true">
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Add..."/>
@@ -53,24 +53,15 @@
       </component>
       <component id="1cfd6" class="javax.swing.JButton" binding="removeButton" default-binding="true">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Remove"/>
         </properties>
       </component>
-      <component id="19a99" class="javax.swing.JCheckBox" binding="debugEnabledCheckbox">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <enabled value="true"/>
-          <text value="debug log"/>
-        </properties>
-      </component>
       <component id="8ab5x" class="javax.swing.JTextField" binding="packageInputField">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-792"/>
@@ -79,6 +70,51 @@
           <toolTipText value="package containing generated protobuf code"/>
         </properties>
       </component>
+      <component id="19a99" class="javax.swing.JCheckBox" binding="debugEnabledCheckbox">
+        <constraints>
+          <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <text value="enable debug log"/>
+        </properties>
+      </component>
+      <component id="5446" class="javax.swing.JCheckBox" binding="highlightWithTooltipCheckbox">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Highlight with tooltip"/>
+        </properties>
+      </component>
+      <component id="52d50" class="javax.swing.JCheckBox" binding="highlightAsDeprecatedCheckbox">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Highlight as Deprecated"/>
+        </properties>
+      </component>
+      <component id="69336" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Highlight Options"/>
+        </properties>
+      </component>
+      <toolbar id="f76d4">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="7" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="20"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-17954"/>
+        </properties>
+        <border type="none" title="known issue: retouch files to see config changes"/>
+        <children/>
+      </toolbar>
     </children>
   </grid>
 </form>
