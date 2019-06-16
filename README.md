@@ -5,7 +5,7 @@
 ### Features
         
 Java code using generated <a href="https://developers.google.com/protocol-buffers/">protobuf</a> classes is highlighted within JetBrains products.<br>
-        This makes it easier to see when a method or class you are using is actually a protobuf / gprc stub
+        This makes it easier to see when a method or class you are using is actually a protobuf / <a href="https://grpc.io/">protobuf</a> stub
 
 ![image](https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/raw/master/image/result.png)
 
@@ -49,6 +49,11 @@ https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/wiki/Roadmap
 
 ### Build
 
+Install the locally build zip from 
+
+```protobuf-highlight-jetbrains-plugin/build/distributions/x.zip```
+
+
 Run following command in the shell:
 
 ```
@@ -60,7 +65,9 @@ It should be possible to run build on any platform (Linux, Windows, MacOS) where
 
 JDK 8 must be installed and available on PATH in order to build plugin.
 
-### Dev tips
+### Development tips
+
+* Install psiviewer plugin
 
 * base your code on another open source plugin
 

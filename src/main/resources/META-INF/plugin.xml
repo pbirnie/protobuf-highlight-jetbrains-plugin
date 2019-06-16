@@ -7,7 +7,7 @@
 
     <description><![CDATA[
         Java code using generated <a href="https://developers.google.com/protocol-buffers/">protobuf</a> classes is highlighted within JetBrains products.<br>
-        This makes it easier to see when a method or class you are using is actually a protobuf / gprc stub
+        This makes it easier to see when a method or class you are using is actually a protobuf / <a href="https://grpc.io/">protobuf</a> stub
         <br>
         <img src="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/blob/master/image/result.png" alt="screenshot">
         <br>
