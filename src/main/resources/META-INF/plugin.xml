@@ -1,15 +1,13 @@
 <idea-plugin>
     <id>com.jumpnotzerosoftware.protohighlight-jetbrains-plugin</id>
     <name>Protobuf Highlight</name>
-    <version>0.10.3</version>
+    <version>0.10.55</version>
     <vendor url="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin" email="paul.birnie@jumpnotzerosoftware.com">Paul Birnie</vendor>
 
 
     <description><![CDATA[
         Java code using generated <a href="https://developers.google.com/protocol-buffers/">protobuf</a> classes is highlighted within JetBrains products.<br>
         This makes it easier to see when a method or class you are using is actually a protobuf / <a href="https://grpc.io/">protobuf</a> stub
-        <br>
-        <img src="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/blob/master/image/result.png" alt="screenshot">
         <br>
         Features:
         <ul>
@@ -25,16 +23,14 @@
 
     <change-notes><![CDATA[
 
-        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.10.3">
-            <b>v0.10.3</b>
+        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.10.55">
+            <b>v0.10.55</b>
         </a> (2019-06-16)
         <br>
         <br>
         This release contains multiple fixes:
         <ul>
-            <li>
-              first version
-            </li>
+            <li>fix bad version number displayed</li>
         </ul>
 
         <br>
