@@ -1,0 +1,100 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'org.ksprojects:java-code-style:1.2'
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.2.7"
+}
+
+group = 'com.jumpnotzerosoftware'
+description = 'Protobuf Highlighter Plugin for JetBrains IDEs'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url "https://dl.bintray.com/antlr/maven/"
+    }
+}
+
+dependencies {
+
+    compile ('org.antlr:antlr4-jetbrains-adapter:2.1.0') {
+        exclude group: 'com.jetbrains'
+        exclude group: 'org.slf4j'
+    }
+    compile 'com.google.guava:guava:21.0'
+    compile ('io.sentry:sentry:1.2.2') {
+        exclude group: 'org.slf4j'
+    }
+}
+
+apply plugin: 'idea'
+idea {
+    project {
+        jdkName = javaVersion
+        languageLevel = javaVersion
+    }
+}
+
+apply plugin: 'org.jetbrains.intellij'
+intellij {
+    version = ideaVersion
+    type = 'IC'
+    updateSinceUntilBuild = false
+    downloadSources = true
+//    plugins = ['PsiViewer:3.28.93']
+//    localPath = '/home/myhome/intellij'
+//    instrumentCode = false
+    publish {
+        username = project.hasProperty('jetbrainsUser')    \
+              ? project.property('jetbrainsUser')    \
+              : System.getenv('JETBRAINS_USER')
+        password = project.hasProperty('jetbrainsPassword')    \
+              ? project.property('jetbrainsPassword')   \
+              : System.getenv('JETBRAINS_PASSWORD')
+        pluginId = '12567'
+    }
+}
+
+test {
+    systemProperty 'test_mode', true
+}
+
+runIde {
+    systemProperty 'trigger_exception_action.visible', true
+}
+
+apply plugin: 'java'
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
+}
+
+/*
+apply plugin: 'checkstyle'
+checkstyle {
+    config = resources.text.fromString(getClass().getResource("checkstyle.xml").text)
+    toolVersion = '7.6.1'
+    // Exclude generated code from Checkstyle checks
+    checkstyleMain.source = "src/main/java"
+    checkstyleTest.source = "src/test/java"
+}*/
