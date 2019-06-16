@@ -67,6 +67,8 @@ JDK 8 must be installed and available on PATH in order to build plugin.
 
 ### Development tips
 
+* log and monitor ide log file - see Help->Show Log in Explorer 
+
 * Install psiviewer plugin
 
 * base your code on another open source plugin
