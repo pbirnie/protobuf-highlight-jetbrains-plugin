@@ -65,6 +65,8 @@
         </constraints>
         <properties>
           <background color="-792"/>
+          <columns value="20"/>
+          <editable value="true"/>
           <horizontalAlignment value="2"/>
           <text value="com.myproject.message"/>
           <toolTipText value="package containing generated protobuf code"/>
@@ -110,7 +112,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-17954"/>
+          <background color="-792"/>
         </properties>
         <border type="none" title="known issue: retouch files to see config changes"/>
         <children/>

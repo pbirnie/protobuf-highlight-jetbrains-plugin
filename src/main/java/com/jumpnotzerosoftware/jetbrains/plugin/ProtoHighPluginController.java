@@ -38,7 +38,6 @@ public class ProtoHighPluginController implements ProjectComponent {
 
     public static final String PLUGIN_ID = "com.jumpnotzerosoftware.proto-highlight-jetbrains-plugin";
 
-    private static final String PLUGIN_NAME = "Protobuf Support";
     private static final Logger LOGGER = Logger.getInstance(ProtoHighPluginController.class);
     private final Project project;
 
@@ -54,46 +53,10 @@ public class ProtoHighPluginController implements ProjectComponent {
     @Override
     public void projectOpened() {
         try {
-            checkConflictingPlugins();
+
         } catch (Exception e) {
             LOGGER.error("Could not detect or disable conflicting plugins", e);
         }
-    }
-
-    private void checkConflictingPlugins() {
-        FileTypeUtil fileTypeUtil = new FileTypeUtil();
-        Collection<IdeaPluginDescriptor> conflictingPlugins = fileTypeUtil.getPluginsForFile("file.proto");
-        if (!conflictingPlugins.isEmpty()) {
-            askUserToDisablePlugins(conflictingPlugins);
-        }
-    }
-
-    private void askUserToDisablePlugins(Collection<IdeaPluginDescriptor> conflictingPlugins) {
-        final String text = formatMessage(conflictingPlugins);
-        NotificationGroup ng = NotificationGroup.balloonGroup("Conflicting Plugins");
-        ng.createNotification(PLUGIN_NAME, text, NotificationType.WARNING,
-                (notification, event) -> {
-                    if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                        for (IdeaPluginDescriptor foreignPlugin : conflictingPlugins) {
-                            PluginManager.disablePlugin(foreignPlugin.getPluginId().toString());
-                        }
-                        Application application = ApplicationManager.getApplication();
-                        application.restart();
-                    }
-                }).notify(project);
-    }
-
-    @NotNull
-    private String formatMessage(Collection<IdeaPluginDescriptor> conflictingPlugins) {
-        String conflictList = formatHtmlPluginList(conflictingPlugins);
-        return "conflicting plugin(s) found" + conflictList;
-    }
-
-    private String formatHtmlPluginList(Collection<IdeaPluginDescriptor> conflictingPlugins) {
-        return String.join("\n", conflictingPlugins.stream()
-                .map(IdeaPluginDescriptor::getName)
-                .map(name -> "<li>" + name + "</li>")
-                .collect(Collectors.toList()));
     }
 
     @Override
@@ -110,97 +73,4 @@ public class ProtoHighPluginController implements ProjectComponent {
         return "ProtoHighPluginController";
     }
 
-    private static class FileTypeUtil {
-
-        private final IdeaPluginDescriptor self = PluginManager.getPlugin(PluginId.getId(PLUGIN_ID));
-        private final Map<String, FileTypeEntry> fileTypes = new LinkedHashMap<>();
-
-        FileTypeUtil() {
-            ExtensionPoint<FileTypeFactory> ep = Extensions.getRootArea().getExtensionPoint(FILE_TYPE_FACTORY_EP);
-            for (FileTypeFactory typeFactory : ep.getExtensions()) {
-                typeFactory.createFileTypes(new FileTypeConsumer() {
-                    @Override
-                    public void consume(@NotNull FileType fileType) {
-                        register(fileType, parse(fileType.getDefaultExtension()));
-                    }
-
-                    @Override
-                    public void consume(@NotNull final FileType fileType, String extensions) {
-                        register(fileType, parse(extensions));
-                    }
-
-                    @Override
-                    public void consume(@NotNull final FileType fileType, @NotNull final FileNameMatcher... matchers) {
-                        register(fileType, new ArrayList<>(Arrays.asList(matchers)));
-                    }
-
-                    @Override
-                    public FileType getStandardFileTypeByName(@NotNull final String name) {
-                        FileTypeEntry type = fileTypes.get(name);
-                        return type != null ? type.fileType : null;
-                    }
-
-                    private void register(@NotNull FileType fileType, @NotNull List<FileNameMatcher> fileNameMatchers) {
-                        FileTypeEntry type = fileTypes.get(fileType.getName());
-                        if (type != null) {
-                            type.matchers.addAll(fileNameMatchers);
-                        } else {
-                            fileTypes.put(fileType.getName(), new FileTypeEntry(fileType, fileNameMatchers));
-                        }
-                    }
-                });
-            }
-        }
-
-        @NotNull
-        private List<FileNameMatcher> parse(@Nullable String semicolonDelimited) {
-            if (semicolonDelimited == null) {
-                return Collections.emptyList();
-            }
-
-            StringTokenizer tokenizer = new StringTokenizer(semicolonDelimited, FileTypeConsumer.EXTENSION_DELIMITER, false);
-            ArrayList<FileNameMatcher> list = new ArrayList<>();
-            while (tokenizer.hasMoreTokens()) {
-                list.add(new ExtensionFileNameMatcher(tokenizer.nextToken().trim()));
-            }
-            return list;
-        }
-
-        Collection<IdeaPluginDescriptor> getPluginsForFile(String filename) {
-            Map<PluginId, IdeaPluginDescriptor> plugins = new HashMap<>();
-            fileTypes.values().forEach(type -> {
-                if (type.match(filename)) {
-                    Class<? extends FileType> fileTypeClass = type.fileType.getClass();
-                    PluginId pluginId = PluginManager.getPluginByClassName(fileTypeClass.getName());
-                    if (pluginId != null && !Objects.equals(self.getPluginId(), pluginId)) {
-                        plugins.put(pluginId, PluginManager.getPlugin(pluginId));
-                    }
-                }
-            });
-            return plugins.values();
-        }
-
-        static class FileTypeEntry {
-            @NotNull
-            private final FileType fileType;
-            @NotNull
-            private final List<FileNameMatcher> matchers;
-
-            private FileTypeEntry(@NotNull FileType fileType, @NotNull List<FileNameMatcher> matchers) {
-                this.fileType = fileType;
-                this.matchers = matchers;
-            }
-
-            boolean match(String filename) {
-                for (FileNameMatcher matcher : matchers) {
-                    if (matcher.accept(filename)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-
-    }
 }

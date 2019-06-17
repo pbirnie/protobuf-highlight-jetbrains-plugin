@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.jumpnotzerosoftware.protohighlight-jetbrains-plugin</id>
     <name>Protobuf Highlight</name>
-    <version>0.10.55</version>
+    <version>0.10.56</version>
     <vendor url="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin" email="paul.birnie@jumpnotzerosoftware.com">Paul Birnie</vendor>
 
 
@@ -23,14 +23,15 @@
 
     <change-notes><![CDATA[
 
-        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.10.55">
-            <b>v0.10.55</b>
-        </a> (2019-06-16)
+        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.10.56">
+            <b>v0.10.56</b>
+        </a> (2019-06-17)
         <br>
         <br>
-        This release contains multiple fixes:
+        This release contains:
         <ul>
-            <li>fix bad version number displayed</li>
+            <li>specify only compatible with intellij</li>
+            <li>fix compatible protobuf plugins check bug</li>
         </ul>
 
         <br>
@@ -42,7 +43,11 @@
 
     <idea-version since-build="171"/>
 
-    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <!--
+    <depends>com.intellij.modules.python</depends>
+    -->
 
     <project-components>
         <component>
@@ -60,7 +65,6 @@
         <annotator
                 language="JAVA"
                 implementationClass="com.jumpnotzerosoftware.jetbrains.plugin.ProtoHighJavaSyntaxKeywordsAnnotator"/>
-
 
         <errorHandler
                 implementation="com.jumpnotzerosoftware.jetbrains.plugin.errorreporting.SentryBugReporter"/>
