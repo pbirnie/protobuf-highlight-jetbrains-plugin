@@ -30,8 +30,7 @@
         <br>
         This release contains:
         <ul>
-            <li>specify only compatible with intellij</li>
-            <li>fix compatible protobuf plugins check bug</li>
+            <li>fix key for https://sentry.io/</li>
         </ul>
 
         <br>
