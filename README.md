@@ -81,7 +81,7 @@ JDK 8 must be installed and available on PATH in order to build plugin.
 
 * read https://www.jetbrains.org/intellij/sdk/docs/tutorials/custom_language_support/quick_fix.html
 
-
+* join https://gitter.im/IntelliJ-Plugin-Developers/Lobby
 
 
 

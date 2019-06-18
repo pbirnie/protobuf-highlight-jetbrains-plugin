@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.jumpnotzerosoftware.protohighlight-jetbrains-plugin</id>
     <name>Protobuf Highlight</name>
-    <version>0.10.56</version>
+    <version>0.10.57</version>
     <vendor url="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin" email="paul.birnie@jumpnotzerosoftware.com">Paul Birnie</vendor>
 
 
@@ -23,9 +23,9 @@
 
     <change-notes><![CDATA[
 
-        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.10.56">
-            <b>v0.10.56</b>
-        </a> (2019-06-17)
+        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.10.57">
+            <b>v0.10.57</b>
+        </a> (2019-06-18)
         <br>
         <br>
         This release contains:
