@@ -33,7 +33,7 @@ dependencies {
         exclude group: 'org.slf4j'
     }
     compile 'com.google.guava:guava:21.0'
-    compile ('io.sentry:sentry:1.2.2') {
+    compile ('io.sentry:sentry:1.7.5') {
         exclude group: 'org.slf4j'
     }
 }
@@ -45,6 +45,7 @@ idea {
         languageLevel = javaVersion
     }
 }
+
 
 apply plugin: 'org.jetbrains.intellij'
 intellij {

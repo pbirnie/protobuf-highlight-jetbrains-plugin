@@ -1,5 +1,6 @@
 package com.jumpnotzerosoftware.jetbrains.plugin.errorreporting;
 
+import io.sentry.Sentry;
 import io.sentry.context.Context;
 import io.sentry.event.BreadcrumbBuilder;
 import io.sentry.event.UserBuilder;
@@ -11,9 +12,8 @@ import static org.junit.Assert.*;
 public class SentryBugReporterTest {
 
 
-
     @Ignore
-    @Test(expected = Exception.class)
+    @Test
     public void testSentryIntegration(){
 
         // Retrieve the current context.
@@ -26,19 +26,26 @@ public class SentryBugReporterTest {
         context.setUser(new UserBuilder().setEmail("hello@sentry.io").build());
 
         // This sends a simple event to Sentry.
-        SentryBugReporter.sentry.sendMessage("This is a test");
+        SentryBugReporter.sentry.sendMessage("TEST INFO This is a test");
 
         try {
-            unsafeMethod();
+            myFakeUnsafeMethod();
         } catch (Exception e) {
             // This sends an exception event to Sentry.
             SentryBugReporter.sentry.sendException(e);
         }
 
+        try {
+            Thread.sleep(3000);
+        }
+        catch (InterruptedException e){
+            //ignore
+        }
+
     }
 
-    void unsafeMethod() {
-        throw new UnsupportedOperationException("You shouldn't call this!");
+    void myFakeUnsafeMethod() {
+        throw new UnsupportedOperationException("TEST EXCEPTION myFakeUnsafeMethod You shouldn't call this!");
     }
 
 }

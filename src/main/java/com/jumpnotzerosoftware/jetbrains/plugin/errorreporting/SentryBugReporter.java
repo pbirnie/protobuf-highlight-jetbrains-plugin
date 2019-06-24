@@ -28,8 +28,8 @@ import org.stringtemplate.v4.ST;
  */
 public class SentryBugReporter extends ErrorReportSubmitter {
 
-    private static final String REPORT_ACTION_TEXT = "Submit error to plugin maintainer";
-    private static final String DEFAULT_RESPONSE = "Thank you for your report.";
+    private static final String REPORT_ACTION_TEXT = "Protobuf Highligher: Submit error to plugin maintainer";
+    private static final String DEFAULT_RESPONSE = "Protobuf Highligher: Thank you for your report";
     private static final String DEFAULT_RESPONSE_TITLE = "Report Submitted";
 
     private static final String EXTRA_OTHER_PLUGINS = "Other Plugins";
@@ -70,6 +70,7 @@ public class SentryBugReporter extends ErrorReportSubmitter {
         EventBuilder eventBuilder = new EventBuilder();
         eventBuilder.withMessage(ideaEvent.getMessage());
         eventBuilder.withRelease(getPluginVersion());
+
         eventBuilder.withTag(TAG_PLATFORM_VERSION, getPlatformVersion());
         eventBuilder.withTag(TAG_OS, SystemInfo.OS_NAME);
         eventBuilder.withTag(TAG_OS_VERSION, SystemInfo.OS_VERSION);

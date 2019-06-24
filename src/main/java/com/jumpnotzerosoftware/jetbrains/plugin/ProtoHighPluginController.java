@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ProtoHighPluginController implements ProjectComponent {
 
-    public static final String PLUGIN_ID = "com.jumpnotzerosoftware.proto-highlight-jetbrains-plugin";
+    public static final String PLUGIN_ID = "com.jumpnotzerosoftware.protohighlight-jetbrains-plugin";
 
     private static final Logger LOGGER = Logger.getInstance(ProtoHighPluginController.class);
     private final Project project;
@@ -55,7 +55,7 @@ public class ProtoHighPluginController implements ProjectComponent {
         try {
 
         } catch (Exception e) {
-            LOGGER.error("Could not detect or disable conflicting plugins", e);
+            LOGGER.error("Project open failure", e);
         }
     }
 
