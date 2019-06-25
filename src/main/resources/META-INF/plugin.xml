@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.jumpnotzerosoftware.protohighlight-jetbrains-plugin</id>
     <name>Protobuf Highlight</name>
-    <version>0.11.05</version>
+    <version>0.11.06</version>
     <vendor url="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin" email="paul.birnie@jumpnotzerosoftware.com">Paul Birnie</vendor>
 
 
@@ -23,12 +23,16 @@
 
     <change-notes><![CDATA[
 
-        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.11.05">
-            <b>v0.11.05/b>
+        <a href="https://github.com/pbirnie/protobuf-highlight-jetbrains-plugin/releases/tag/v0.11.06">
+            <b>v0.11.06</b>
         </a> (2019-06-14)
         <br>
         <br>
         This release contains:
+        <ul>
+            <li>match package name exactly (ie. if 'com.company.message' is configured  but 'com.company.message.util' will not be matched (unless another explicit line of config is added for this)</li>
+        </ul>
+
         <ul>
             <li>fix conflict with protobuf support plugin</li>
         </ul>

@@ -266,11 +266,13 @@ public class ProtoHighJavaSyntaxKeywordsAnnotator implements Annotator {
 
         String fullClassName = psiClass.getQualifiedName();
 
+        String packageName = ProtoHighStringUtil.extractPackage(fullClassName);
+
         if (protoHighSettings != null){
 
             for (String pathToMatch : protoHighSettings.getIncludePackages()){
 
-                if (fullClassName.startsWith(pathToMatch)){
+                if (packageName.equals(pathToMatch)){
 
                     matchFound = true;
 
